@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block heading %}<i class="fa-solid fa-book" aria-hidden="true"></i> Library Reservations{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="card-header">Current reservations</div>
+    <ul class="list-group list-group-flush">
+        {% for res in reservations %}
+        <li class="list-group-item">
+            <span>{{ res.name }} reserved on {{ res.date }} at {{ res.time }} in {{ res.library }}</span>
+            <form method="post" action="{{ url_for('delete', index=loop.index0) }}">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+        </li>
+        {% else %}
+        <li class="list-group-item text-body-secondary">No reservations yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="text-center mt-4">
+    <a href="{{ url_for('reserve') }}" class="btn btn-primary btn-lg">Make a reservation</a>
+</div>
+{% endblock %}

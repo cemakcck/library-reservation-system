@@ -1,87 +1,56 @@
-# 📚 Library Reservation System – CMPE331 Group Project
+# Library Reservation System
 
-This is a full-stack web application developed for the CMPE331 Software Engineering course at Istanbul Bilgi University. The goal was to build a university library reservation platform where students can book time slots at specific libraries, with built-in validation and conflict handling.
+A small Flask web app for booking time slots at university libraries. Students pick a library, a date and a time, and the app refuses bookings that clash with an existing one or fall in the past.
 
-> 🧠 This was a group project developed by Cem Akçiçek, Ece Doğa Gül, Berkay Özdelice, Muhammed Ali Akdoğan, and Emirhan İnan.
+Built as a group project for CMPE331 (Software Engineering) at Istanbul Bilgi University. The project's requirements, UML diagrams and final report are included as PDFs.
 
----
+## Features
 
-## 🛠️ Tech Stack
+- List, create and delete reservations
+- University email check: only addresses ending in `.edu.tr` can book (for example `name@bilgi.edu.tr`)
+- No bookings in the past, and no double booking of the same slot at the same library
+- Clear error messages, with the form keeping what you typed
+- Reservations are saved to a JSON file, so they survive a restart
 
-- **Frontend**: HTML, Bootstrap 5, Font Awesome
-- **Backend**: Python Flask
-- **Data Handling**: JSON file for storage
-- **Deployment**: ngrok for temporary public links
-- **Tools**: Google Colab / VS Code
+## Tech stack
 
----
+Python 3.10+, Flask, Jinja templates, Bootstrap 5, pytest.
 
-## 🎯 Features
+## Run it
 
-- Users can:
-  - View all reservations
-  - Make new reservations
-  - Delete existing ones
-- Input validation:
-  - Only allows `@edu.tr` or `@edunet` emails
-  - Prevents past-date bookings
-  - Avoids time conflicts at the same library
-- Flash messages show errors or success feedback
-- Clean UI with responsive design
+```bash
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+```
 
----
+Then open http://localhost:5000.
 
-## 🚀 How to Run the Project
+Optional settings (environment variables):
 
-### ▶️ Run via Google Colab:
-1. Upload `library_reservation_app.ipynb` to [Google Colab](https://colab.research.google.com/)
-2. Run all cells
-3. Click the **ngrok public link** printed in the output
-4. Start making reservations 🎉
+| Variable | What it does | Default |
+|----------|--------------|---------|
+| `PORT` | Port to listen on | `5000` |
+| `DATA_FILE` | Where reservations are stored | `data/reservations.json` |
+| `SECRET_KEY` | Signs the session that carries flash messages | a random key per start |
 
-⚠️ Note: The link will expire when the Colab session ends — just rerun to get a new one.
+## Tests
 
----
+```bash
+pytest
+```
 
-## 📁 Project Files
+The tests cover the email rule, past dates, double booking, invalid dates and times, deleting, and saving across restarts.
 
-| File | Description |
-|------|-------------|
-| `library_reservation_app.ipynb` | Flask app with full backend + embedded HTML |
-| `Library_Reservation_Final_Report.pdf` | Final technical report with screenshots and UI description |
-| `Library_Reservation_SRS.pdf` | Software Requirements Specification |
-| `Library_Reservation_UML_Diagrams.pdf` | UML diagrams: use case, class, activity, sequence |
+## Project documents
 
----
+| File | Contents |
+|------|----------|
+| `Library_Reservation_SRS.pdf` | Software requirements specification |
+| `Library_Reservation_UML_Diagrams.pdf` | Use case, class, activity and sequence diagrams |
+| `Library_Reservation_Final_Report.pdf` | Final report with screenshots |
 
-## 🧩 UML Diagrams
+## Team
 
-The following diagrams are included in the UML PDF:
-- Use Case Diagram
-- Class Diagram
-- Activity Diagram
-- Sequence Diagram
-
----
-
-## 📌 Notes
-
-- This app does not require a database or separate frontend directory. Everything is self-contained in the notebook.
-- Designed for educational purposes and rapid prototyping.
-- Scalable to production-level architecture with Flask + PostgreSQL + Docker.
-
----
-
-## 👥 Contributors
-
-- Cem Akçiçek (122200044)
-- Ece Doğa Gül (121200123)
-- Berkay Özdelice (119200057)
-- Muhammed Ali Akdoğan (122202038)
-- Emirhan İnan (122202085)
-
----
-
-## 💫 License
-
-For academic showcase purposes. Not for commercial use.
+Cem Akçiçek, Ece Doğa Gül, Berkay Özdelice, Muhammed Ali Akdoğan and Emirhan İnan.

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Reserve a Slot{% endblock %}
+{% block heading %}<i class="fa-solid fa-calendar-plus" aria-hidden="true"></i> Reserve a Slot{% endblock %}
+{% block content %}
+<div class="form-container">
+    <form method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ form.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">University email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ form.email }}" placeholder="name@university.edu.tr" required>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ form.date }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="time" class="form-label">Time</label>
+            <input type="time" class="form-control" id="time" name="time" value="{{ form.time }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="library" class="form-label">Library</label>
+            <select class="form-select" id="library" name="library" required>
+                {% for lib in libraries %}
+                <option value="{{ lib }}" {% if form.library == lib %}selected{% endif %}>{{ lib }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Reserve now</button>
+        </div>
+    </form>
+</div>
+<div class="text-center mt-4">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-lg">Back to reservations</a>
+</div>
+{% endblock %}
